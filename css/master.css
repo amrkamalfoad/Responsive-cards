@@ -1,0 +1,171 @@
+*{
+    box-sizing:border-box;
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family: sans-serif;
+    background-color: #fff;
+}
+header {
+    width: 90%;
+    padding: 15px;
+    margin: auto;
+    text-align: center;
+    color: grey;
+}
+header h1{
+    text-transform: capitalize;
+}
+.container{
+    width: 90%;
+    margin: auto;
+    margin-top: 30px;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+    gap: 60px; /* to make an equal vertical and horizontal gap or space  */
+}
+.cardContainer{
+    border-radius: 40px 40px 0px;
+    box-shadow:  0 4px 5px 0 rgb(0 0 0 / 20%);
+    position: relative;
+    top: 0; /*we made top 0 relative to make transition smoother by using hover (top -18px) */
+    transition: 0.3s;
+}
+
+/* make effect using after and before to close and full full height on hover */
+.cardContainer:hover::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 0%;
+    background-color: #fff;
+    border-radius: 40px 40px 0px 0px;
+    opacity: 0.6;
+    z-index: 2;/*to make effect of after above the below div*/
+    animation: expand 0.3s forwards;
+}
+.cardContainer:hover::after{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 0%;
+    background-color: #fff;
+    border-radius: 0px 0px 0px 40px;
+    opacity: 0.6;
+    z-index: 2; /*to make effect of after above the below div*/
+    animation: expand 0.3s forwards ;
+}
+/* animation to expand width of before and after element from height 0 untill reaches 50% height of parent */
+@keyframes expand {
+    from{
+        height: 0;
+    }to{
+        height: 50%;
+    }
+}
+.cardContainer:hover{
+    box-shadow:  0px 22px 15px 2px rgb(0 0 0 / 20%);
+    position: relative;
+    top: -18px;
+    cursor: pointer;
+}
+.cardContainer .cardImg,.cardContainer .cardImg img{
+    border-radius: 40px 40px 0px 0px;/* border-radius of top-left and top-right like container border-radius 40px and other edges zero */
+}
+.cardContainer .cardImg img{
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+    transition: 0.3s;
+}
+.cardContainer .cardImg{
+    overflow: hidden; /*to override overlow that will happen due to scaling images*/
+}
+.cardContainer:hover .cardImg{
+    filter: blur(3px); /*to blur image when hover to make button appear clearly and blur behide it*/
+}
+.cardContainer:hover .cardImg img{
+    transform: scale(1.1); /*to make 3d effect*/
+}
+.cardContainer .cardContent{
+    padding: 10px 10px 30px 10px;
+    color: #ffffff;
+}
+.cardContainer:hover .cardContent:not(:last-child){
+    filter: blur(3px); /*to blur cardcontent div but not  button because it will appear above them*/
+}
+.cardContainer .cardContent p,.cardContainer .cardContent h2{
+    text-align: center;
+    margin:15px;
+    text-transform: capitalize;
+}
+.cardContainer .cardContent p{
+    font-size: 1.1rem;
+}
+.cardContainer .cardContent p:first-of-type{
+    line-height: 1.8;
+}
+
+.cardContainer:nth-child(1){
+    background-color: rgba(32, 172, 10, 0.944);
+}
+.cardContainer:nth-child(2){
+    background-color: #3c3ce2;
+}
+.cardContainer:nth-child(3){
+    background-color: rgb(170, 7, 170);
+}
+/* contact Now button will not appear until hover after hover it will appear in center of its parent (cardContainer) */
+
+.cardContainer  button{    
+    display: none;
+    padding: 10px 15px;
+    font-size: 1rem;
+    text-transform: capitalize;
+    border-radius: 3px;
+    border: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 3; /*to make button above the other div give it highest z-index*/
+    color: white;
+}
+.cardContainer:hover  button{
+    display: block; 
+}
+.cardContainer:nth-of-type(1) button{
+    background-color: rgba(32, 172, 10, 0.944);
+}
+.cardContainer:nth-of-type(2)  button{
+    background-color: #3c3ce2;
+}
+.cardContainer:nth-of-type(3)  button {
+    background-color: rgb(170, 7, 170);
+}
+.cardContainer button:hover{
+    cursor: pointer;
+}
+
+/* here i will adjust design for small screens */
+@media (max-width:468px) {
+    header h1{
+        font-size: 1.7rem;
+    }
+    header {
+        width: 100%;
+    }
+    .container{
+        width: 100%;
+    }
+    .cardContainer .cardContent p{
+        font-size: 1rem;
+    }
+    .cardContainer .cardContent p:first-of-type{
+        line-height: 1.4;
+    }
+}
